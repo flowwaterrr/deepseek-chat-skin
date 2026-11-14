@@ -8,19 +8,9 @@
 
 上传自己的图片后：
 
-| 聊天界面 | 侧边栏 |
-| --- | --- |
-| ![聊天界面](docs/screenshots/showcase-chat.jpg) | ![侧边栏](docs/screenshots/showcase-sidebar.jpg) |
-
-| 设置 | 开屏页 |
-| --- | --- |
-| ![设置](docs/screenshots/showcase-settings.jpg) | ![开屏页](docs/screenshots/showcase-splash.jpg) |
-
-默认外观与配色字体：
-
-| 默认界面 | 配色与字体 |
-| --- | --- |
-| ![默认界面](docs/screenshots/01-overview.png) | ![配色与字体](docs/screenshots/04-palette-font.png) |
+| 聊天界面 | 设置 | 开屏页 |
+| --- | --- | --- |
+| ![聊天界面](docs/screenshots/showcase-chat.jpg) | ![设置](docs/screenshots/showcase-settings.jpg) | ![开屏页](docs/screenshots/showcase-splash.jpg) |
 
 ## 功能
 
@@ -31,7 +21,7 @@
 - **气泡排列**：设置顶部有实时预览，三张卡片直接切 —— 双方气泡 / 对面纯文字 / 逐句气泡
 - **颜色**：气泡、输入框、强调色各一个取色器，随时改
 - **气泡形状**：圆角方 / 圆 / 胶囊，透明度实 / 柔 / 透，描边无 / 细线 / 柔光，宽度窄 / 标准 / 宽；双方同步
-- **头像**：圆形或圆角方形，也可以整体隐藏
+- **头像形状**：圆形或圆角方形，也可以整体隐藏
 - **消息间距**：紧凑 / 标准 / 宽松
 - **毛玻璃**：开启后气泡与输入框变成半透明磨砂，配背景图更明显
 - **柔和光晕**：输入框周围一层淡淡的光
@@ -56,13 +46,13 @@
 
 ## 文件
 
-| 文件 | 内容 |
-| --- | --- |
-| `index.html` | 全部 HTML / CSS / JS，单文件 |
-| `LICENSE` | 上游 MIT 许可全文 |
-| `docs/screenshots/` | 界面截图 |
+| 文件                  | 内容                     |
+| ------------------- | ---------------------- |
+| `index.html`        | 全部 HTML / CSS / JS，单文件 |
+| `LICENSE`           | 上游 MIT 许可全文            |
+| `docs/screenshots/` | 界面截图                   |
 
-样式集中在 `index.html` 的 `<style>`：`--veil` / `--sb-veil` 控制白纱，`--msg-font` 控制字号，`html[data-palette]` 控制配色，`body.tf-*` 控制字体栈，`--bubble` / `--composer-bg` 控制气泡与输入框颜色，`--bubble-radius` / `--bubble-fill` 控制气泡形状，`body.glass` 控制毛玻璃，`#splash` 是开屏页。文案在 `<script>` 的 `I18N` 字典，中英两份。除 `api.deepseek.com` 外没有网络请求；无第三方库、CDN、外部字体或图片，字体走系统字体栈，语音能力由浏览器提供。
+样式集中在 `index.html` 的 `<style>`：`--veil` / `--sb-veil` 控制白纱，`--msg-font` 控制字号，`html[data-palette]` 控制配色，`body.tf-*` 控制字体栈，`--bubble` / `--composer-bg` 控制气泡与输入框颜色，`--bubble-radius` / `--bubble-fill` / `--bubble-max` / `--bubble-shadow` 控制气泡，`body.both-bubbles` / `body.sbs` 控制双方气泡与逐句，`body.glass` 控制毛玻璃，`#splash` 是开屏页。文案在 `<script>` 的 `I18N` 字典，中英两份。除 `api.deepseek.com` 外没有网络请求；无第三方库、CDN、外部字体或图片，字体走系统字体栈，语音能力由浏览器提供。
 
 ## 关于
 
