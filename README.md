@@ -1,20 +1,26 @@
 # DeepSeek Chat Skin
 
-一个可以自己换外观的 DeepSeek 聊天界面。单个 HTML 文件，下载后双击就能打开，不用安装、不用后端。
+一个可以自己换外观的 DeepSeek 聊天界面。单个 HTML 文件，下载后双击就能打开，不用安装、不用后端，手机和电脑都能用。
 
 > 基于 [deepseek-ai/chat-demo](https://github.com/deepseek-ai/chat-demo)（MIT）的界面布局二次开发。**不是 DeepSeek 官方产品**，与 DeepSeek 无关联。
 
 ## 界面
 
-| 默认界面（自带演示对话） | 设置面板 |
-| --- | --- |
-| ![默认界面](docs/screenshots/01-overview.png) | ![设置面板](docs/screenshots/02-settings.png) |
+上传自己的图片后：
 
-| 聊天区与侧边栏各自设置背景，薄白纱保持文字可读 | 竹青配色 + 宋体字形 |
+| 聊天界面 | 侧边栏 |
 | --- | --- |
-| ![独立背景与薄白纱](docs/screenshots/03-backgrounds.png) | ![配色与字体](docs/screenshots/04-palette-font.png) |
+| ![聊天界面](docs/screenshots/showcase-chat.jpg) | ![侧边栏](docs/screenshots/showcase-sidebar.jpg) |
 
-![毛玻璃效果](docs/screenshots/05-glass.png)
+| 设置 | 背景图 |
+| --- | --- |
+| ![设置](docs/screenshots/showcase-settings.jpg) | ![背景图](docs/screenshots/showcase-wallpaper.jpg) |
+
+默认外观与配色字体：
+
+| 默认界面 | 配色与字体 |
+| --- | --- |
+| ![默认界面](docs/screenshots/01-overview.png) | ![配色与字体](docs/screenshots/04-palette-font.png) |
 
 ## 功能
 
