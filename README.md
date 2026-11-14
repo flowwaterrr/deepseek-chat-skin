@@ -52,8 +52,6 @@
 
 原项目：[deepseek-ai/chat-demo](https://github.com/deepseek-ai/chat-demo)（MIT，2026-11-13 开源）。作者：[flowwaterrr](https://github.com/flowwaterrr)。
 
-字体栈与配色参考了 [whyihaveyou/dsh-themes](https://github.com/whyihaveyou/dsh-themes)、[nevertoday/dsh-theme-plugin](https://github.com/nevertoday/dsh-theme-plugin)、[webkubor/dsh-bloom-theme](https://github.com/webkubor/dsh-bloom-theme) 和 [EdgeTypE/better-deepseek](https://github.com/EdgeTypE/better-deepseek)。
-
 ## 许可与免责
 
 原项目版权 `Copyright (c) 2026 DeepSeek`，采用 MIT License；完整文本见 [LICENSE](LICENSE)。本仓库新增部分同样以 MIT License 发布。
