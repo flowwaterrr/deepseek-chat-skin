@@ -10,11 +10,13 @@
 | --- | --- |
 | ![默认界面](docs/screenshots/01-overview.png) | ![设置面板](docs/screenshots/02-settings.png) |
 
-![聊天区与侧边栏分别设置背景，薄白纱让文字保持可读](docs/screenshots/03-backgrounds.png)
+| 聊天区与侧边栏分别设置背景，薄白纱让文字保持可读 | 竹青配色 + 宋体字形 |
+| --- | --- |
+| ![独立背景与薄白纱](docs/screenshots/03-backgrounds.png) | ![配色与字体](docs/screenshots/04-palette-font.png) |
 
 ## 这个版本改了什么
 
-界面布局和使用体验复刻自官方 demo，代码是重新写的单文件 HTML。在此基础上加了 6 处外观调整：
+界面布局和使用体验复刻自官方 demo，代码是重新写的单文件 HTML。在此基础上加了 8 处外观调整：
 
 | 调整 | 怎么用 |
 | --- | --- |
@@ -22,6 +24,8 @@
 | 聊天区背景 | 设置 → 通用 → 聊天背景，上传 / 清除 |
 | 侧边栏背景 | 设置 → 通用 → 侧边栏背景，与聊天区互不影响 |
 | 正文字号 | 设置 → 通用 → 字体大小，小 / 中 / 大 三档 |
+| 字体样式 | 设置 → 通用 → 字体样式，系统 / 宋体 / 等宽，均为系统自带字体 |
+| 配色 | 设置 → 通用 → 配色，5 套现成配色，点一下就换 |
 | 薄白纱 | 背景上方一层半透明遮罩，明暗主题各一套，保证文字可读 |
 | 演示对话 | 首次打开自带一段示例对话，不会一进来就是空白页 |
 
@@ -33,7 +37,7 @@
 
 1. 仓库右上角 **Code → Download ZIP**，解压。
 2. 双击 `index.html`，用 Chrome / Edge / Safari 打开。
-3. 直接就能看到演示对话；换头像、换背景、调字号都在左下角 **设置** 里。
+3. 直接就能看到演示对话；换头像、换背景、调字号、换字体、换配色都在左下角 **设置** 里。
 4. 想真的和模型对话：在 [platform.deepseek.com](https://platform.deepseek.com) 申请 API Key，打开 **设置 → 数据** 填入。Key 只存在当前浏览器，只发给 `api.deepseek.com`。
 
 不需要 Node.js、不需要 npm、不需要构建、不需要服务器。
@@ -41,7 +45,7 @@
 ## 继续二次开发
 
 - 本地预览：`python3 -m http.server 8000` → `http://localhost:8000`
-- 样式：全部在 `index.html` 的 `<style>` 里；`--veil` / `--sb-veil` 控制白纱，`--msg-font` 控制字号
+- 样式：全部在 `index.html` 的 `<style>` 里；`--veil` / `--sb-veil` 控制白纱，`--msg-font` 控制字号，`html[data-palette]` 控制配色，`body.tf-*` 控制字体栈
 - 文案：`<script>` 里的 `i18n` 字典，中英两份
 - 唯一的外部请求是 `https://api.deepseek.com/chat/completions`。**无第三方库、无 CDN、无外部字体 / 图片**，字体走系统字体栈；语音朗读与输入用浏览器自带 Web Speech API
 
@@ -52,7 +56,7 @@
 | 原项目 | [deepseek-ai/chat-demo](https://github.com/deepseek-ai/chat-demo)，2026-11-13 开源，MIT License |
 | 本仓库 | 独立新建的二次开发仓库，**不是 fork**，不隶属于 DeepSeek |
 | 复刻 | 官方 demo 的整体界面布局与使用体验 |
-| 重写 / 新增 | 单文件 HTML 实现；上表 6 项外观调整 |
+| 重写 / 新增 | 单文件 HTML 实现；上表 8 项外观调整 |
 | 未移植 | 官方 demo 的完整功能集（见「范围说明」） |
 
 作者：[flowwaterrr](https://github.com/flowwaterrr)。
@@ -60,6 +64,8 @@
 ## 鸣谢与许可
 
 感谢 DeepSeek 开源 [chat-demo](https://github.com/deepseek-ai/chat-demo)。原项目版权 `Copyright (c) 2026 DeepSeek`，采用 MIT License；完整许可文本见 [LICENSE](LICENSE)，本仓库已按 MIT 要求保留原版权声明与许可通知。本仓库重写与新增部分同样以 MIT License 发布。
+
+字体栈与配色参考了几个公开的主题项目：[whyihaveyou/dsh-themes](https://github.com/whyihaveyou/dsh-themes)（Catppuccin / Ayu / Dracula / Flexoki 色值）、[nevertoday/dsh-theme-plugin](https://github.com/nevertoday/dsh-theme-plugin)（中国传统色「竹青」）、[webkubor/dsh-bloom-theme](https://github.com/webkubor/dsh-bloom-theme)（宋体栈）、[EdgeTypE/better-deepseek](https://github.com/EdgeTypE/better-deepseek)（等宽栈）。这些项目用的也都是系统自带字体，本仓库同样只写字体名，不加载也不打包任何字体文件。
 
 第三方依赖声明：前端零第三方库、零 CDN、零外部字体与图片；运行时仅调用使用者自行配置的 DeepSeek API，语音能力由浏览器提供。上游第三方依赖各自的许可请以[原项目](https://github.com/deepseek-ai/chat-demo)为准。
 
