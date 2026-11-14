@@ -17,7 +17,7 @@
         --sb-bg:#f8f9fb; --sb-hover:#eef0f4; --sb-active:#e7eaf1;
         --bg:#ffffff; --text:#1f2329; --text-2:#5f6570; --text-3:#9aa0ab;
         --border:#e6e7eb; --bubble:#f3f4f8; --composer-border:#e3e4e8;
-        --veil:rgba(255,255,255,.42); --sb-veil:rgba(248,249,251,.9); --modal-bg:#ffffff; --input-bg:#ffffff;
+        --veil:rgba(255,255,255,.42); --sb-veil:rgba(248,249,251,.9); --modal-bg:#ffffff; --input-bg:#ffffff; --composer-bg:#ffffff;
         --danger:#f23f42; --shadow:0 12px 40px rgba(20,24,60,.14);
         --msg-font:15.5px;
       }
@@ -30,7 +30,7 @@
         --sb-bg:#17181c; --sb-hover:#22242a; --sb-active:#26282f;
         --bg:#1d1e23; --text:#e8e9ec; --text-2:#a6abb6; --text-3:#6f7580;
         --border:#2e3038; --bubble:#26272e; --composer-border:#34353d;
-        --veil:rgba(20,20,24,.43); --sb-veil:rgba(23,24,28,.92); --modal-bg:#23242a; --input-bg:#1b1c20;
+        --veil:rgba(20,20,24,.43); --sb-veil:rgba(23,24,28,.92); --modal-bg:#23242a; --input-bg:#1b1c20; --composer-bg:#23242a;
         --blue-soft:#26305c; --shadow:0 12px 40px rgba(0,0,0,.5);
       }
       body.fs-small{ --msg-font:14px; } body.fs-large{ --msg-font:17px; }
@@ -134,7 +134,7 @@
       .err-text{ color:var(--danger); }
 
       /* ============ Composer ============ */
-      #composer{ width:100%; background:var(--modal-bg); border:1px solid var(--composer-border); border-radius:22px; box-shadow:0 2px 14px rgba(30,35,70,.06); padding:12px 12px 8px; }
+      #composer{ width:100%; background:var(--composer-bg); border:1px solid var(--composer-border); border-radius:22px; box-shadow:0 2px 14px rgba(30,35,70,.06); padding:12px 12px 8px; }
       #attachPreview{ display:none; flex-wrap:wrap; gap:8px; padding:0 4px 8px; }
       #attachPreview.on{ display:flex; }
       .att-chip{ position:relative; width:58px; height:58px; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
@@ -163,7 +163,7 @@
       /* ============ Settings modal ============ */
       #overlay{ position:fixed; inset:0; background:rgba(28,30,40,.45); backdrop-filter:blur(3px); z-index:50; display:none; align-items:center; justify-content:center; padding:16px; }
       #overlay.on{ display:flex; }
-      #settingsModal{ background:var(--modal-bg); width:780px; max-width:100%; height:520px; max-height:92dvh; border-radius:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden; }
+      #settingsModal{ background:var(--modal-bg); width:780px; max-width:100%; height:660px; max-height:92dvh; border-radius:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden; }
       .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:18px 22px 6px; }
       .modal-head h2{ font-size:17px; font-weight:600; margin:0; }
       .modal-body{ display:flex; flex:1; min-height:0; padding:8px 22px 20px; gap:26px; }
@@ -195,6 +195,22 @@
       .bg-thumb.on{ display:block; }
       .btn-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
 
+      .set-row input[type="color"]{ width:46px; height:34px; padding:3px; border:1px solid var(--border); border-radius:10px; background:var(--input-bg); cursor:pointer; }
+      body.glass .msg-row.user .msg-body,
+      body.glass #composer{
+        background:color-mix(in srgb, var(--bubble) 45%, transparent);
+        -webkit-backdrop-filter:blur(16px) saturate(180%);
+        backdrop-filter:blur(16px) saturate(180%);
+        border:1px solid rgba(255,255,255,.3);
+        box-shadow:0 8px 32px rgba(0,0,0,.1);
+      }
+      body.glass #composer{ background:color-mix(in srgb, var(--composer-bg) 45%, transparent); }
+      html[data-theme="dark"] body.glass .msg-row.user .msg-body,
+      html[data-theme="dark"] body.glass #composer{ border-color:rgba(255,255,255,.14); }
+      #splash{ position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+        background:var(--bg); color:var(--text); font-size:30px; font-weight:300; letter-spacing:.1em;
+        transition:opacity .5s ease; }
+      #splash.hide{ opacity:0; pointer-events:none; }
       #toast{ position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:#26282e; color:#fff; font-size:13.5px; padding:10px 18px; border-radius:999px; z-index:99; opacity:0; pointer-events:none; transition:.25s; max-width:88vw; text-align:center; box-shadow:var(--shadow); }
       #toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
 
@@ -382,6 +398,21 @@
               </div>
             </div>
             <div class="set-row">
+              <div><div class="sr-t" data-i18n="bubbleColor">Bubble color</div></div>
+              <input type="color" id="bubbleColorInput" value="#f3f4f8" aria-label="Bubble color" />
+            </div>
+            <div class="set-row">
+              <div><div class="sr-t" data-i18n="composerColor">Input color</div></div>
+              <input type="color" id="composerColorInput" value="#ffffff" aria-label="Input color" />
+            </div>
+            <div class="set-row">
+              <div><div class="sr-t" data-i18n="glass">Frosted glass</div></div>
+              <div class="seg" id="glassSeg">
+                <button data-val="off" data-i18n="off">Off</button>
+                <button data-val="on" data-i18n="on">On</button>
+              </div>
+            </div>
+            <div class="set-row">
               <div>
                 <div class="sr-t" data-i18n="voice">Read-aloud voice</div>
                 <div class="sr-d" data-i18n="voiceD">Used by the speaker button on AI replies.</div>
@@ -466,6 +497,7 @@
     <input type="file" id="attachInput" accept="image/*" multiple hidden />
     <input type="file" id="importInput" accept=".json,application/json" hidden />
 
+    <div id="splash">welcome</div>
     <script>
     (function(){
       "use strict";
@@ -476,7 +508,7 @@
       function $(id){ return document.getElementById(id); }
 
       /* ---------- state ---------- */
-      var settings = { lang:"en", appearance:"light", font:"medium", typeface:"system", palette:"default", voice:"", location:"Hong Kong" };
+      var settings = { lang:"en", appearance:"light", font:"medium", typeface:"system", palette:"default", bubbleColor:"", composerColor:"", glass:"off", voice:"", location:"Hong Kong" };
       try{ var s = JSON.parse(lsGet(LS.settings)||"null"); if(s) settings = Object.assign(settings, s); }catch(e){}
       var chats = [];
       try{ chats = JSON.parse(lsGet(LS.chats)||"[]"); if(!Array.isArray(chats)) chats = []; }catch(e){ chats = []; }
@@ -491,8 +523,8 @@
 
       /* ---------- i18n ---------- */
       var I18N = {
-        en:{ newChat:"New chat", recent:"Recent", settings:"Settings", howHelp:"How can I help you?", deepThink:"DeepThink", search:"Search", general:"General", data:"Data", language:"Language", appearance:"Appearance", light:"Light", dark:"Dark", system:"System", fontSize:"Font size", small:"Small", medium:"Medium", large:"Large", voice:"Read-aloud voice", voiceD:"Used by the speaker button on AI replies.", location:"Location", background:"Chat background", backgroundD:"Your picture fills the chat area under a soft veil, so text stays readable. Saved in this browser.", sbBackground:"Sidebar background", sbBackgroundD:"Your picture fills the sidebar under a soft veil, so the text stays readable. Saved in this browser, separate from the chat background.", sbBgSaved:"Sidebar background saved", sbBgCleared:"Sidebar background removed", upload:"Upload", clear:"Clear", avatarRow:"Profile avatar", avatarRowD:"Shown at the top left and beside your messages. You can also tap the avatar in the sidebar.", apiTitle:"Enter an API Key to get started", apiD:"Get a key at platform.deepseek.com. It is stored only in this browser and sent only to api.deepseek.com.", importT:"Import chat history", importD:"Importing replaces all local chats. Supports the JSON file exported below.", exportT:"Export all chats", exportD:"Includes all chat history and locally stored images. Your API Key is not included.", deleteT:"Delete all chats", delete:"Delete", download:"Download", disclaimer:"AI-generated, for reference only", placeholder:"Message DeepSeek", placeholderMobile:"Enter a message", changeAvatar:"Change avatar", removeAvatar:"Remove avatar", avatarRemoved:"Avatar removed", noChats:"No conversations yet", profile:"My profile", tapAvatar:"Tap avatar to change", thinking:"DeepThink", defaultVoice:"Default voice", storageFull:"Storage is full — oldest data may not save.", needKey:"Add your DeepSeek API Key in Settings → Data first.", bgSaved:"Background saved", bgCleared:"Background removed", avatarSaved:"Avatar updated", deletedAll:"All chats deleted", tapAgain:"Tap again to confirm", exported:"Chats exported", importOk:"Chat history imported", importBad:"That file could not be imported.", copied:"Copied", voiceUnsupported:"Voice input is not supported in this browser.", listening:"Listening… speak now", stop:"Stop", send:"Send", typeface:"Typeface", tfSystem:"System", tfSerif:"Serif", tfMono:"Mono", palette:"Palette", palDefault:"Default", palCat:"Lavender", palAyu:"Amber", palZhu:"Jade", palDra:"Violet", palFle:"Teal" },
-        zh:{ newChat:"新对话", recent:"最近", settings:"设置", howHelp:"有什么可以帮你的？", deepThink:"深度思考", search:"联网搜索", general:"通用", data:"数据", language:"语言", appearance:"外观", light:"浅色", dark:"深色", system:"跟随系统", fontSize:"字体大小", small:"小", medium:"中", large:"大", voice:"朗读声音", voiceD:"用于 AI 回复旁边的朗读按钮。", location:"位置", background:"聊天背景", backgroundD:"图片铺满聊天区，上面有一层淡纱，文字照样看得清。存在这个浏览器里。", sbBackground:"侧边栏背景", sbBackgroundD:"图片铺满侧边栏，上面有一层淡纱，字照样看得清。存在这个浏览器里，和聊天背景分开存。", sbBgSaved:"侧边栏背景已保存", sbBgCleared:"侧边栏背景已清除", upload:"上传", clear:"清除", avatarRow:"我的头像", avatarRowD:"显示在左上角和你发的消息旁边，也可以直接点侧边栏的头像换。", apiTitle:"输入 API Key 开始使用", apiD:"在 platform.deepseek.com 获取。只存在这个浏览器里，只发给 api.deepseek.com。", importT:"导入聊天记录", importD:"导入会替换全部本地对话，支持下方导出的 JSON 文件。", exportT:"导出全部对话", exportD:"包含全部聊天记录和本地图片，不包含你的 API Key。", deleteT:"删除全部对话", delete:"删除", download:"下载", disclaimer:"内容由 AI 生成，仅供参考", placeholder:"给 DeepSeek 发送消息", placeholderMobile:"输入消息", changeAvatar:"更换头像", removeAvatar:"删除头像", avatarRemoved:"头像已删除", noChats:"还没有对话", profile:"我的资料", tapAvatar:"点头像更换", thinking:"深度思考", defaultVoice:"默认声音", storageFull:"浏览器存储满了，旧数据可能存不下。", needKey:"先在 设置 → 数据 里填你的 DeepSeek API Key。", bgSaved:"背景已保存", bgCleared:"背景已清除", avatarSaved:"头像已更新", deletedAll:"已删除全部对话", tapAgain:"再点一次确认", exported:"对话已导出", importOk:"聊天记录已导入", importBad:"这个文件导入不了。", copied:"已复制", voiceUnsupported:"这个浏览器不支持语音输入。", listening:"在听了…开始说吧", stop:"停止", send:"发送", typeface:"字体样式", tfSystem:"系统", tfSerif:"宋体", tfMono:"等宽", palette:"配色", palDefault:"默认", palCat:"藕紫", palAyu:"暖橙", palZhu:"竹青", palDra:"墨紫", palFle:"青碧" }
+        en:{ newChat:"New chat", recent:"Recent", settings:"Settings", howHelp:"How can I help you?", deepThink:"DeepThink", search:"Search", general:"General", data:"Data", language:"Language", appearance:"Appearance", light:"Light", dark:"Dark", system:"System", fontSize:"Font size", small:"Small", medium:"Medium", large:"Large", voice:"Read-aloud voice", voiceD:"Used by the speaker button on AI replies.", location:"Location", background:"Chat background", backgroundD:"Your picture fills the chat area under a soft veil, so text stays readable. Saved in this browser.", sbBackground:"Sidebar background", sbBackgroundD:"Your picture fills the sidebar under a soft veil, so the text stays readable. Saved in this browser, separate from the chat background.", sbBgSaved:"Sidebar background saved", sbBgCleared:"Sidebar background removed", upload:"Upload", clear:"Clear", avatarRow:"Profile avatar", avatarRowD:"Shown at the top left and beside your messages. You can also tap the avatar in the sidebar.", apiTitle:"Enter an API Key to get started", apiD:"Get a key at platform.deepseek.com. It is stored only in this browser and sent only to api.deepseek.com.", importT:"Import chat history", importD:"Importing replaces all local chats. Supports the JSON file exported below.", exportT:"Export all chats", exportD:"Includes all chat history and locally stored images. Your API Key is not included.", deleteT:"Delete all chats", delete:"Delete", download:"Download", disclaimer:"AI-generated, for reference only", placeholder:"Message DeepSeek", placeholderMobile:"Enter a message", changeAvatar:"Change avatar", removeAvatar:"Remove avatar", avatarRemoved:"Avatar removed", noChats:"No conversations yet", profile:"My profile", tapAvatar:"Tap avatar to change", thinking:"DeepThink", defaultVoice:"Default voice", storageFull:"Storage is full — oldest data may not save.", needKey:"Add your DeepSeek API Key in Settings → Data first.", bgSaved:"Background saved", bgCleared:"Background removed", avatarSaved:"Avatar updated", deletedAll:"All chats deleted", tapAgain:"Tap again to confirm", exported:"Chats exported", importOk:"Chat history imported", importBad:"That file could not be imported.", copied:"Copied", voiceUnsupported:"Voice input is not supported in this browser.", listening:"Listening… speak now", stop:"Stop", send:"Send", typeface:"Typeface", tfSystem:"System", tfSerif:"Serif", tfMono:"Mono", palette:"Palette", palDefault:"Default", palCat:"Lavender", palAyu:"Amber", palZhu:"Jade", palDra:"Violet", palFle:"Teal", bubbleColor:"Bubble color", composerColor:"Input color", glass:"Frosted glass", on:"On", off:"Off" },
+        zh:{ newChat:"新对话", recent:"最近", settings:"设置", howHelp:"有什么可以帮你的？", deepThink:"深度思考", search:"联网搜索", general:"通用", data:"数据", language:"语言", appearance:"外观", light:"浅色", dark:"深色", system:"跟随系统", fontSize:"字体大小", small:"小", medium:"中", large:"大", voice:"朗读声音", voiceD:"用于 AI 回复旁边的朗读按钮。", location:"位置", background:"聊天背景", backgroundD:"图片铺满聊天区，上面有一层淡纱，文字照样看得清。存在这个浏览器里。", sbBackground:"侧边栏背景", sbBackgroundD:"图片铺满侧边栏，上面有一层淡纱，字照样看得清。存在这个浏览器里，和聊天背景分开存。", sbBgSaved:"侧边栏背景已保存", sbBgCleared:"侧边栏背景已清除", upload:"上传", clear:"清除", avatarRow:"我的头像", avatarRowD:"显示在左上角和你发的消息旁边，也可以直接点侧边栏的头像换。", apiTitle:"输入 API Key 开始使用", apiD:"在 platform.deepseek.com 获取。只存在这个浏览器里，只发给 api.deepseek.com。", importT:"导入聊天记录", importD:"导入会替换全部本地对话，支持下方导出的 JSON 文件。", exportT:"导出全部对话", exportD:"包含全部聊天记录和本地图片，不包含你的 API Key。", deleteT:"删除全部对话", delete:"删除", download:"下载", disclaimer:"内容由 AI 生成，仅供参考", placeholder:"给 DeepSeek 发送消息", placeholderMobile:"输入消息", changeAvatar:"更换头像", removeAvatar:"删除头像", avatarRemoved:"头像已删除", noChats:"还没有对话", profile:"我的资料", tapAvatar:"点头像更换", thinking:"深度思考", defaultVoice:"默认声音", storageFull:"浏览器存储满了，旧数据可能存不下。", needKey:"先在 设置 → 数据 里填你的 DeepSeek API Key。", bgSaved:"背景已保存", bgCleared:"背景已清除", avatarSaved:"头像已更新", deletedAll:"已删除全部对话", tapAgain:"再点一次确认", exported:"对话已导出", importOk:"聊天记录已导入", importBad:"这个文件导入不了。", copied:"已复制", voiceUnsupported:"这个浏览器不支持语音输入。", listening:"在听了…开始说吧", stop:"停止", send:"发送", typeface:"字体样式", tfSystem:"系统", tfSerif:"宋体", tfMono:"等宽", palette:"配色", palDefault:"默认", palCat:"藕紫", palAyu:"暖橙", palZhu:"竹青", palDra:"墨紫", palFle:"青碧", bubbleColor:"气泡颜色", composerColor:"输入框颜色", glass:"毛玻璃", on:"开", off:"关" }
       };
       function t(k){ return (I18N[settings.lang]||I18N.en)[k] || I18N.en[k] || k; }
       function applyPlaceholder(){ var inp = $("inputBox"); if(!inp) return; inp.placeholder = (window.innerWidth <= 720) ? t("placeholderMobile") : t("placeholder"); }
@@ -625,6 +657,22 @@
       }
       document.querySelectorAll("#typefaceSeg button").forEach(function(b){ b.addEventListener("click", function(){ settings.typeface = b.getAttribute("data-val"); saveSettings(); applyTypeface(); }); });
       document.querySelectorAll("#paletteSeg button").forEach(function(b){ b.addEventListener("click", function(){ settings.palette = b.getAttribute("data-val"); saveSettings(); applyPalette(); }); });
+      function applyColors(){
+        var root = document.documentElement;
+        if(settings.bubbleColor) root.style.setProperty("--bubble", settings.bubbleColor);
+        else root.style.removeProperty("--bubble");
+        if(settings.composerColor) root.style.setProperty("--composer-bg", settings.composerColor);
+        else root.style.removeProperty("--composer-bg");
+        $("bubbleColorInput").value = settings.bubbleColor || "#f3f4f8";
+        $("composerColorInput").value = settings.composerColor || "#ffffff";
+      }
+      function applyGlass(){
+        document.body.classList.toggle("glass", settings.glass === "on");
+        document.querySelectorAll("#glassSeg button").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-val") === settings.glass); });
+      }
+      $("bubbleColorInput").addEventListener("input", function(){ settings.bubbleColor = this.value; saveSettings(); applyColors(); });
+      $("composerColorInput").addEventListener("input", function(){ settings.composerColor = this.value; saveSettings(); applyColors(); });
+      document.querySelectorAll("#glassSeg button").forEach(function(b){ b.addEventListener("click", function(){ settings.glass = b.getAttribute("data-val"); saveSettings(); applyGlass(); }); });
       /* ---------- voices ---------- */
       function loadVoices(){
         var sel = $("voiceSelect"); if(!("speechSynthesis" in window)){ sel.innerHTML = ""; var o = document.createElement("option"); o.textContent = t("defaultVoice"); sel.appendChild(o); return; }
@@ -970,7 +1018,7 @@
       /* ---------- init ---------- */
       $("langSelect").value = settings.lang;
       $("locationInput").value = settings.location || "Hong Kong";
-      applyAppearance(); applyFont(); applyTypeface(); applyPalette(); applyLang(); loadVoices();
+      applyAppearance(); applyFont(); applyTypeface(); applyPalette(); applyColors(); applyGlass(); applyLang(); loadVoices();
       applyAvatar(); applyBackground(); applySbBackground();
       /* Seed one fixed demo conversation — only on the very first open,
          when there is no local chat history at all. The seeded flag stays
@@ -997,6 +1045,8 @@
       }
       if(!currentChat() && chats.length){ currentId = chats.slice().sort(function(a,b){ return (b.updated||0)-(a.updated||0); })[0].id; }
       renderAll(); autoGrow();
+      setTimeout(function(){ $("splash").classList.add("hide"); }, 900);
+      setTimeout(function(){ var sp = $("splash"); if(sp) sp.remove(); }, 1500);
     })();
     </script>
   </body>

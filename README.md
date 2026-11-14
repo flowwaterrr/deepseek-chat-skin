@@ -14,14 +14,19 @@
 | --- | --- |
 | ![独立背景与薄白纱](docs/screenshots/03-backgrounds.png) | ![配色与字体](docs/screenshots/04-palette-font.png) |
 
+![毛玻璃效果](docs/screenshots/05-glass.png)
+
 ## 功能
 
 - **头像**：点左下角头像换图，自己发的消息旁同步
 - **背景**：聊天区与侧边栏各传一张图，互不影响，可随时清除
 - **字体**：正文字号小 / 中 / 大；字形系统 / 宋体 / 等宽
 - **配色**：5 套预设，点一下切换
+- **气泡 / 输入框颜色**：设置里各一个取色器，随时改
+- **毛玻璃**：开启后气泡与输入框变成半透明磨砂，配背景图更明显
 - **薄白纱**：背景上方一层半透明遮罩，明暗主题各一套，保证文字可读
 - **明暗主题、中英界面**
+- **欢迎页**：打开时先显示 `welcome`，随后淡出
 - **演示对话**：首次打开自带一段示例对话
 - **真实对话**：填入自己的 DeepSeek API Key 后可用；Key 只存在当前浏览器，只发给 `api.deepseek.com`
 
@@ -46,7 +51,7 @@
 | `LICENSE` | 上游 MIT 许可全文 |
 | `docs/screenshots/` | 界面截图 |
 
-样式集中在 `index.html` 的 `<style>`：`--veil` / `--sb-veil` 控制白纱，`--msg-font` 控制字号，`html[data-palette]` 控制配色，`body.tf-*` 控制字体栈。文案在 `<script>` 的 `I18N` 字典，中英两份。除 `api.deepseek.com` 外没有网络请求；无第三方库、CDN、外部字体或图片，字体走系统字体栈，语音能力由浏览器提供。
+样式集中在 `index.html` 的 `<style>`：`--veil` / `--sb-veil` 控制白纱，`--msg-font` 控制字号，`html[data-palette]` 控制配色，`body.tf-*` 控制字体栈，`--bubble` / `--composer-bg` 控制气泡与输入框颜色，`body.glass` 控制毛玻璃，`#splash` 是欢迎页。文案在 `<script>` 的 `I18N` 字典，中英两份。除 `api.deepseek.com` 外没有网络请求；无第三方库、CDN、外部字体或图片，字体走系统字体栈，语音能力由浏览器提供。
 
 ## 关于
 
