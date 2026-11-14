@@ -99,7 +99,7 @@
       #emptyState{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; width:100%; max-width:780px; margin:0 auto; }
       #emptyState h1{ font-size:27px; font-weight:600; margin:0 0 30px; letter-spacing:-.01em; text-align:center; }
       #emptyState.off{ display:none; }
-      #dock{ position:relative; z-index:2; width:100%; max-width:780px; margin:0 auto; padding:6px 20px 14px; display:none; }
+      #dock{ position:relative; z-index:2; width:100%; max-width:780px; margin:0 auto; padding:6px 20px 28px; display:none; }
       #dock.on{ display:block; }
 
       /* messages */
@@ -107,20 +107,22 @@
       .msg-row.user{ flex-direction:row-reverse; }
       .msg-avatar{ width:32px; height:32px; border-radius:50%; object-fit:cover; flex:0 0 32px; background:linear-gradient(135deg,#dbe2ff,#f3e8ff); }
       .msg-avatar-fallback{ width:32px; height:32px; border-radius:50%; flex:0 0 32px; background:linear-gradient(135deg,#dbe2ff,#f3e8ff); color:var(--blue); display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px; }
-      .msg-body{ max-width:82%; font-size:var(--msg-font); line-height:1.75; word-break:break-word; overflow-wrap:anywhere; }
-      .msg-row.user .msg-body{ background:var(--bubble-fill,var(--bubble)); padding:10px 16px; border-radius:var(--bubble-radius,18px); }
+      .msg-body{ max-width:var(--bubble-max,82%); font-size:var(--msg-font); line-height:1.75; word-break:break-word; overflow-wrap:anywhere; }
+      .msg-row.user .msg-body{ background:var(--bubble-fill,var(--bubble)); padding:10px 16px; border-radius:var(--bubble-radius,18px); box-shadow:var(--bubble-shadow,none); }
+      body.both-bubbles:not(.sbs) .msg-row.assistant .msg-body{ max-width:var(--bubble-max,82%); background:var(--bubble-fill,var(--bubble)); padding:10px 16px; border-radius:var(--bubble-radius,18px); box-shadow:var(--bubble-shadow,none); }
+      body.both-bubbles:not(.sbs) .msg-row.assistant .msg-body .msg-actions{ margin:6px 0 -6px -6px; }
       body.br-square{ --bubble-radius:8px; } body.br-pill{ --bubble-radius:28px; }
       body.ba-soft{ --bubble-fill:color-mix(in srgb, var(--bubble) 78%, transparent); }
       body.ba-clear{ --bubble-fill:color-mix(in srgb, var(--bubble) 52%, transparent); }
       body.av-square .profile-avatar, body.av-square .msg-avatar, body.av-square .msg-avatar-fallback{ border-radius:11px; }
       body.dense #messages{ gap:14px; } body.airy #messages{ gap:38px; }
       body.no-avatars .msg-avatar, body.no-avatars .msg-avatar-fallback{ display:none; }
-      body.bo-line .msg-row.user .msg-body{ box-shadow:inset 0 0 0 1px rgba(127,135,155,.38); }
-      body.bo-soft .msg-row.user .msg-body{ box-shadow:0 0 0 1px var(--blue-soft), 0 6px 22px color-mix(in srgb, var(--blue) 20%, transparent); }
-      body.bw-narrow .msg-row.user .msg-body{ max-width:62%; }
-      body.bw-wide .msg-row.user .msg-body{ max-width:96%; }
+      body.bo-line{ --bubble-shadow:inset 0 0 0 1px rgba(127,135,155,.38); }
+      body.bo-soft{ --bubble-shadow:0 0 0 1px var(--blue-soft), 0 6px 22px color-mix(in srgb, var(--blue) 20%, transparent); }
+      body.bw-narrow{ --bubble-max:62%; }
+      body.bw-wide{ --bubble-max:96%; }
       body.sbs .msg-row.assistant .msg-body{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
-      body.sbs .msg-row.assistant .msg-body .sbs-line{ background:var(--bubble-fill,var(--bubble)); padding:8px 14px; border-radius:var(--bubble-radius,18px); max-width:88%; }
+      body.sbs .msg-row.assistant .msg-body .sbs-line{ background:var(--bubble-fill,var(--bubble)); padding:8px 14px; border-radius:var(--bubble-radius,18px); max-width:var(--bubble-max,88%); box-shadow:var(--bubble-shadow,none); }
       body.sbs .msg-row.assistant .msg-body .sbs-line p,
       body.sbs .msg-row.assistant .msg-body .sbs-line ul,
       body.sbs .msg-row.assistant .msg-body .sbs-line ol{ margin:0; }
@@ -212,6 +214,8 @@
 
       .set-row input[type="color"]{ width:46px; height:34px; padding:3px; border:1px solid var(--border); border-radius:10px; background:var(--input-bg); cursor:pointer; }
       body.glass .msg-row.user .msg-body,
+      body.glass.both-bubbles:not(.sbs) .msg-row.assistant .msg-body,
+      body.glass.sbs .sbs-line,
       body.glass #composer{
         background:color-mix(in srgb, var(--bubble) 45%, transparent);
         -webkit-backdrop-filter:blur(16px) saturate(180%);
@@ -221,6 +225,8 @@
       }
       body.glass #composer{ background:color-mix(in srgb, var(--composer-bg) 45%, transparent); }
       html[data-theme="dark"] body.glass .msg-row.user .msg-body,
+      html[data-theme="dark"] body.glass.both-bubbles:not(.sbs) .msg-row.assistant .msg-body,
+      html[data-theme="dark"] body.glass.sbs .sbs-line,
       html[data-theme="dark"] body.glass #composer{ border-color:rgba(255,255,255,.14); }
       body.glow-on #composer{ box-shadow:0 2px 14px rgba(30,35,70,.06), 0 0 34px color-mix(in srgb, var(--blue) 24%, transparent); }
       #splash{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-start; justify-content:center;
@@ -244,7 +250,7 @@
         #emptyState{ padding:64px 14px 12px; justify-content:flex-start; }
         #emptyState h1{ flex:1; width:100%; display:flex; align-items:center; justify-content:center; font-size:25px; margin:0; }
         #messages{ padding:64px 14px 8px; }
-        #dock{ padding:6px 12px 10px; }
+        #dock{ padding:6px 12px 22px; }
         .msg-body{ max-width:88%; }
         .modal-body{ flex-direction:column; gap:8px; padding:4px 18px 16px; }
         .modal-nav{ flex-direction:row; width:100%; flex-basis:auto; }
@@ -409,6 +415,13 @@
                 <button data-val="zhuqing" data-i18n="palZhu">Jade</button>
                 <button data-val="dracula" data-i18n="palDra">Violet</button>
                 <button data-val="flexoki" data-i18n="palFle">Teal</button>
+              </div>
+            </div>
+            <div class="set-row">
+              <div><div class="sr-t" data-i18n="bothBubbles">Both bubbles</div></div>
+              <div class="seg" id="bothSeg">
+                <button data-val="on" data-i18n="on">On</button>
+                <button data-val="off" data-i18n="off">Off</button>
               </div>
             </div>
             <div class="set-row">
@@ -609,7 +622,7 @@
       function $(id){ return document.getElementById(id); }
 
       /* ---------- state ---------- */
-      var settings = { lang:"en", appearance:"light", font:"medium", typeface:"system", palette:"default", bubbleColor:"", composerColor:"", glass:"off", radius:"round", bubbleAlpha:"solid", avatarShape:"circle", gap:"normal", accentColor:"", splashText:"welcome", showAvatars:"on", bubbleOutline:"none", bubbleWidth:"normal", ambientGlow:"off", sentence:"off", voice:"", location:"Hong Kong" };
+      var settings = { lang:"en", appearance:"light", font:"medium", typeface:"system", palette:"default", bubbleColor:"", composerColor:"", glass:"off", radius:"round", bubbleAlpha:"solid", avatarShape:"circle", gap:"normal", accentColor:"", splashText:"welcome", showAvatars:"on", bubbleOutline:"none", bubbleWidth:"normal", ambientGlow:"off", sentence:"off", bothBubbles:"on", voice:"", location:"Hong Kong" };
       try{ var s = JSON.parse(lsGet(LS.settings)||"null"); if(s) settings = Object.assign(settings, s); }catch(e){}
       var chats = [];
       try{ chats = JSON.parse(lsGet(LS.chats)||"[]"); if(!Array.isArray(chats)) chats = []; }catch(e){ chats = []; }
@@ -624,8 +637,8 @@
 
       /* ---------- i18n ---------- */
       var I18N = {
-        en:{ newChat:"New chat", recent:"Recent", settings:"Settings", howHelp:"How can I help you?", deepThink:"DeepThink", search:"Search", general:"General", data:"Data", language:"Language", appearance:"Appearance", light:"Light", dark:"Dark", system:"System", fontSize:"Font size", small:"Small", medium:"Medium", large:"Large", voice:"Read-aloud voice", location:"Location", background:"Chat background", sbBackground:"Sidebar background", sbBgSaved:"Sidebar background saved", sbBgCleared:"Sidebar background removed", upload:"Upload", clear:"Clear", avatarRow:"Profile avatar", apiTitle:"Enter an API Key to get started", importT:"Import chat history", exportT:"Export all chats", deleteT:"Delete all chats", delete:"Delete", download:"Download", placeholder:"Message DeepSeek", placeholderMobile:"Enter a message", changeAvatar:"Change avatar", removeAvatar:"Remove avatar", avatarRemoved:"Avatar removed", noChats:"No conversations yet", profile:"My profile", tapAvatar:"Tap avatar to change", thinking:"DeepThink", defaultVoice:"Default voice", storageFull:"Storage is full — oldest data may not save.", needKey:"Add your DeepSeek API Key in Settings → Data first.", bgSaved:"Background saved", bgCleared:"Background removed", avatarSaved:"Avatar updated", deletedAll:"All chats deleted", tapAgain:"Tap again to confirm", exported:"Chats exported", importOk:"Chat history imported", importBad:"That file could not be imported.", copied:"Copied", voiceUnsupported:"Voice input is not supported in this browser.", listening:"Listening… speak now", stop:"Stop", send:"Send", typeface:"Typeface", tfSystem:"System", tfSerif:"Serif", tfMono:"Mono", palette:"Palette", palDefault:"Default", palCat:"Lavender", palAyu:"Amber", palZhu:"Jade", palDra:"Violet", palFle:"Teal", bubbleColor:"Bubble color", composerColor:"Input color", glass:"Frosted glass", on:"On", off:"Off", bubbleRadius:"Bubble corners", rSquare:"Square", rRound:"Round", rPill:"Pill", bubbleAlpha:"Bubble opacity", aSolid:"Solid", aSoft:"Soft", aClear:"Sheer", avatarShape:"Avatar shape", avCircle:"Circle", avSquare:"Rounded", messageGap:"Message spacing", gDense:"Compact", gNormal:"Normal", gAiry:"Loose", accentColor:"Accent color", splashText:"Welcome text", splashImage:"Welcome image", splashSaved:"Welcome image saved", splashCleared:"Welcome image removed", showAvatars:"Avatars", bubbleOutline:"Bubble outline", boNone:"None", boLine:"Line", boSoft:"Glow", bubbleWidth:"Bubble width", bwNarrow:"Narrow", bwNormal:"Normal", bwWide:"Wide", ambientGlow:"Soft glow", sentenceMode:"Sentence by sentence" },
-        zh:{ newChat:"新对话", recent:"最近", settings:"设置", howHelp:"有什么可以帮你的？", deepThink:"深度思考", search:"联网搜索", general:"通用", data:"数据", language:"语言", appearance:"外观", light:"浅色", dark:"深色", system:"跟随系统", fontSize:"字体大小", small:"小", medium:"中", large:"大", voice:"朗读声音", location:"位置", background:"聊天背景", sbBackground:"侧边栏背景", sbBgSaved:"侧边栏背景已保存", sbBgCleared:"侧边栏背景已清除", upload:"上传", clear:"清除", avatarRow:"我的头像", apiTitle:"输入 API Key 开始使用", importT:"导入聊天记录", exportT:"导出全部对话", deleteT:"删除全部对话", delete:"删除", download:"下载", placeholder:"给 DeepSeek 发送消息", placeholderMobile:"输入消息", changeAvatar:"更换头像", removeAvatar:"删除头像", avatarRemoved:"头像已删除", noChats:"还没有对话", profile:"我的资料", tapAvatar:"点头像更换", thinking:"深度思考", defaultVoice:"默认声音", storageFull:"浏览器存储满了，旧数据可能存不下。", needKey:"先在 设置 → 数据 里填你的 DeepSeek API Key。", bgSaved:"背景已保存", bgCleared:"背景已清除", avatarSaved:"头像已更新", deletedAll:"已删除全部对话", tapAgain:"再点一次确认", exported:"对话已导出", importOk:"聊天记录已导入", importBad:"这个文件导入不了。", copied:"已复制", voiceUnsupported:"这个浏览器不支持语音输入。", listening:"在听了…开始说吧", stop:"停止", send:"发送", typeface:"字体样式", tfSystem:"系统", tfSerif:"宋体", tfMono:"等宽", palette:"配色", palDefault:"默认", palCat:"藕紫", palAyu:"暖橙", palZhu:"竹青", palDra:"墨紫", palFle:"青碧", bubbleColor:"气泡颜色", composerColor:"输入框颜色", glass:"毛玻璃", on:"开", off:"关", bubbleRadius:"气泡圆角", rSquare:"方", rRound:"圆", rPill:"胶囊", bubbleAlpha:"气泡透明度", aSolid:"实", aSoft:"柔", aClear:"透", avatarShape:"头像形状", avCircle:"圆形", avSquare:"圆角方", messageGap:"消息间距", gDense:"紧凑", gNormal:"标准", gAiry:"宽松", accentColor:"强调色", splashText:"开屏文字", splashImage:"开屏图片", splashSaved:"开屏图片已保存", splashCleared:"开屏图片已清除", showAvatars:"显示头像", bubbleOutline:"气泡描边", boNone:"无", boLine:"细线", boSoft:"柔光", bubbleWidth:"气泡宽度", bwNarrow:"窄", bwNormal:"标准", bwWide:"宽", ambientGlow:"柔和光晕", sentenceMode:"逐句显示" }
+        en:{ newChat:"New chat", recent:"Recent", settings:"Settings", howHelp:"How can I help you?", deepThink:"DeepThink", search:"Search", general:"General", data:"Data", language:"Language", appearance:"Appearance", light:"Light", dark:"Dark", system:"System", fontSize:"Font size", small:"Small", medium:"Medium", large:"Large", voice:"Read-aloud voice", location:"Location", background:"Chat background", sbBackground:"Sidebar background", sbBgSaved:"Sidebar background saved", sbBgCleared:"Sidebar background removed", upload:"Upload", clear:"Clear", avatarRow:"Profile avatar", apiTitle:"Enter an API Key to get started", importT:"Import chat history", exportT:"Export all chats", deleteT:"Delete all chats", delete:"Delete", download:"Download", placeholder:"Message DeepSeek", placeholderMobile:"Enter a message", changeAvatar:"Change avatar", removeAvatar:"Remove avatar", avatarRemoved:"Avatar removed", noChats:"No conversations yet", profile:"My profile", tapAvatar:"Tap avatar to change", thinking:"DeepThink", defaultVoice:"Default voice", storageFull:"Storage is full — oldest data may not save.", needKey:"Add your DeepSeek API Key in Settings → Data first.", bgSaved:"Background saved", bgCleared:"Background removed", avatarSaved:"Avatar updated", deletedAll:"All chats deleted", tapAgain:"Tap again to confirm", exported:"Chats exported", importOk:"Chat history imported", importBad:"That file could not be imported.", copied:"Copied", voiceUnsupported:"Voice input is not supported in this browser.", listening:"Listening… speak now", stop:"Stop", send:"Send", typeface:"Typeface", tfSystem:"System", tfSerif:"Serif", tfMono:"Mono", palette:"Palette", palDefault:"Default", palCat:"Lavender", palAyu:"Amber", palZhu:"Jade", palDra:"Violet", palFle:"Teal", bubbleColor:"Bubble color", composerColor:"Input color", glass:"Frosted glass", on:"On", off:"Off", bubbleRadius:"Bubble corners", rSquare:"Square", rRound:"Round", rPill:"Pill", bubbleAlpha:"Bubble opacity", aSolid:"Solid", aSoft:"Soft", aClear:"Sheer", avatarShape:"Avatar shape", avCircle:"Circle", avSquare:"Rounded", messageGap:"Message spacing", gDense:"Compact", gNormal:"Normal", gAiry:"Loose", accentColor:"Accent color", splashText:"Welcome text", splashImage:"Welcome image", splashSaved:"Welcome image saved", splashCleared:"Welcome image removed", showAvatars:"Avatars", bubbleOutline:"Bubble outline", boNone:"None", boLine:"Line", boSoft:"Glow", bubbleWidth:"Bubble width", bwNarrow:"Narrow", bwNormal:"Normal", bwWide:"Wide", ambientGlow:"Soft glow", sentenceMode:"Sentence by sentence", bothBubbles:"Both bubbles" },
+        zh:{ newChat:"新对话", recent:"最近", settings:"设置", howHelp:"有什么可以帮你的？", deepThink:"深度思考", search:"联网搜索", general:"通用", data:"数据", language:"语言", appearance:"外观", light:"浅色", dark:"深色", system:"跟随系统", fontSize:"字体大小", small:"小", medium:"中", large:"大", voice:"朗读声音", location:"位置", background:"聊天背景", sbBackground:"侧边栏背景", sbBgSaved:"侧边栏背景已保存", sbBgCleared:"侧边栏背景已清除", upload:"上传", clear:"清除", avatarRow:"我的头像", apiTitle:"输入 API Key 开始使用", importT:"导入聊天记录", exportT:"导出全部对话", deleteT:"删除全部对话", delete:"删除", download:"下载", placeholder:"给 DeepSeek 发送消息", placeholderMobile:"输入消息", changeAvatar:"更换头像", removeAvatar:"删除头像", avatarRemoved:"头像已删除", noChats:"还没有对话", profile:"我的资料", tapAvatar:"点头像更换", thinking:"深度思考", defaultVoice:"默认声音", storageFull:"浏览器存储满了，旧数据可能存不下。", needKey:"先在 设置 → 数据 里填你的 DeepSeek API Key。", bgSaved:"背景已保存", bgCleared:"背景已清除", avatarSaved:"头像已更新", deletedAll:"已删除全部对话", tapAgain:"再点一次确认", exported:"对话已导出", importOk:"聊天记录已导入", importBad:"这个文件导入不了。", copied:"已复制", voiceUnsupported:"这个浏览器不支持语音输入。", listening:"在听了…开始说吧", stop:"停止", send:"发送", typeface:"字体样式", tfSystem:"系统", tfSerif:"宋体", tfMono:"等宽", palette:"配色", palDefault:"默认", palCat:"藕紫", palAyu:"暖橙", palZhu:"竹青", palDra:"墨紫", palFle:"青碧", bubbleColor:"气泡颜色", composerColor:"输入框颜色", glass:"毛玻璃", on:"开", off:"关", bubbleRadius:"气泡圆角", rSquare:"方", rRound:"圆", rPill:"胶囊", bubbleAlpha:"气泡透明度", aSolid:"实", aSoft:"柔", aClear:"透", avatarShape:"头像形状", avCircle:"圆形", avSquare:"圆角方", messageGap:"消息间距", gDense:"紧凑", gNormal:"标准", gAiry:"宽松", accentColor:"强调色", splashText:"开屏文字", splashImage:"开屏图片", splashSaved:"开屏图片已保存", splashCleared:"开屏图片已清除", showAvatars:"显示头像", bubbleOutline:"气泡描边", boNone:"无", boLine:"细线", boSoft:"柔光", bubbleWidth:"气泡宽度", bwNarrow:"窄", bwNormal:"标准", bwWide:"宽", ambientGlow:"柔和光晕", sentenceMode:"逐句显示", bothBubbles:"双方气泡" }
       };
       function t(k){ return (I18N[settings.lang]||I18N.en)[k] || I18N.en[k] || k; }
       function applyPlaceholder(){ var inp = $("inputBox"); if(!inp) return; inp.placeholder = (window.innerWidth <= 720) ? t("placeholderMobile") : t("placeholder"); }
@@ -782,10 +795,10 @@
       $("composerColorInput").addEventListener("input", function(){ settings.composerColor = this.value; saveSettings(); applyColors(); });
       document.querySelectorAll("#glassSeg button").forEach(function(b){ b.addEventListener("click", function(){ settings.glass = b.getAttribute("data-val"); saveSettings(); applyGlass(); }); });
       /* ---------- shapes ---------- */
-      var SEG_KEYS = { radiusSeg:"radius", alphaSeg:"bubbleAlpha", avatarShapeSeg:"avatarShape", gapSeg:"gap", avatarsSeg:"showAvatars", outlineSeg:"bubbleOutline", widthSeg:"bubbleWidth", glowSeg:"ambientGlow", sentenceSeg:"sentence" };
+      var SEG_KEYS = { radiusSeg:"radius", alphaSeg:"bubbleAlpha", avatarShapeSeg:"avatarShape", gapSeg:"gap", avatarsSeg:"showAvatars", outlineSeg:"bubbleOutline", widthSeg:"bubbleWidth", glowSeg:"ambientGlow", sentenceSeg:"sentence", bothSeg:"bothBubbles" };
       function applyShapes(){
         var b = document.body;
-        b.classList.remove("br-square","br-pill","ba-soft","ba-clear","av-square","dense","airy","no-avatars","bo-line","bo-soft","bw-narrow","bw-wide","glow-on","sbs");
+        b.classList.remove("br-square","br-pill","ba-soft","ba-clear","av-square","dense","airy","no-avatars","bo-line","bo-soft","bw-narrow","bw-wide","glow-on","sbs","both-bubbles");
         if(settings.radius === "square") b.classList.add("br-square");
         if(settings.radius === "pill") b.classList.add("br-pill");
         if(settings.bubbleAlpha === "soft") b.classList.add("ba-soft");
@@ -800,6 +813,7 @@
         if(settings.bubbleWidth === "wide") b.classList.add("bw-wide");
         if(settings.ambientGlow === "on") b.classList.add("glow-on");
         if(settings.sentence === "on") b.classList.add("sbs");
+        if(settings.bothBubbles === "on") b.classList.add("both-bubbles");
         Object.keys(SEG_KEYS).forEach(function(id){
           document.querySelectorAll("#" + id + " button").forEach(function(btn){
             btn.classList.toggle("active", btn.getAttribute("data-val") === settings[SEG_KEYS[id]]);
